@@ -9,8 +9,7 @@ import Logo2 from "@/public/Logo2.svg";
 import { usePathname } from "next/navigation";
 import Footer from "./footer";
 import { useRouter } from "next/navigation";
-import { useAppSelector, useAppDispatch } from "@/store/hooks";
-import AlertLogout from "../common/alert-logout";
+import { useAppDispatch } from "@/store/hooks";
 
 export default function DashboardWrapper({
   children,
@@ -18,7 +17,6 @@ export default function DashboardWrapper({
   children: React.ReactNode;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { dialogLogout } = useAppSelector((state) => state.state);
   const { data: userProfile, isLoading } = useGetUserProfile();
 
   const pathname = usePathname();
@@ -56,7 +54,7 @@ export default function DashboardWrapper({
     </div>
   ) : (
     <div className="relative flex flex-col justify-between min-h-screen bg-white">
-      <TopNavbar setSidebarOpen={setSidebarOpen} />
+      <TopNavbar />
         <div className="mt-20">{children}</div>
       <Footer />
     </div>

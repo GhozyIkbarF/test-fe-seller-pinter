@@ -31,7 +31,7 @@ export const useCreateCategory = () => {
           toast.success("Category created successfully");
       queryClient.invalidateQueries({
         queryKey: ["categories"],
-        exact: false, // match segala varian page/limit/search
+        exact: false,
       });
     },
     onError: (error: AxiosError) => {
@@ -44,7 +44,6 @@ export const useCreateCategory = () => {
 };
 
 export const useUpdateCategory = (id:string) => {
-  // console.log(id, 'idusecaseupdate');
   const queryClient = useQueryClient();
   return useMutation({
       mutationFn: (data: ICategorySchema) =>
@@ -53,7 +52,7 @@ export const useUpdateCategory = (id:string) => {
       toast.success("Category updated successfully");
       queryClient.invalidateQueries({
         queryKey: ["categories"],
-        exact: false, // match segala varian page/limit/search
+        exact: false, 
     });
     },
     onError: (error: AxiosError) => {
@@ -73,7 +72,7 @@ export const useDeleteCategory = (id: string) => {
       toast.success("Category deleted successfully");
       queryClient.invalidateQueries({
         queryKey: ["categories"],
-        exact: false, // match segala varian page/limit/search
+        exact: false, 
       });
     },
     onError: (error: AxiosError) => {

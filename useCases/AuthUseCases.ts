@@ -1,7 +1,6 @@
 import { AxiosError } from 'axios';
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-// import { ROUTES_PATH } from "@/constants/routes";
 import { registerUser, loginUser } from "@/services/AuthServices";
 import { setCookie } from "@/lib/utils";
 
@@ -30,7 +29,6 @@ export const useLoginUser = () => {
       toast.success("Login successful", {
         description: "You are now logged in",
       });
-      console.log("Login data:", data);
       setCookie(data.token);
       window.location.href = '/';
     },

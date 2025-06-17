@@ -21,7 +21,7 @@ export const UseArticlesFreature = ({
   } = useSearch({
     initPage: 1,
     initLimit: limitPage,
-    delay: 1000,
+    delay: 500,
   });
   const [category, setCategory] = useState("");
   const [selectedId, setSelectedId] = useState("");

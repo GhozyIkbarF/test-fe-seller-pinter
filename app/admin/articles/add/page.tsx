@@ -55,9 +55,9 @@ export default function ArticleForm() {
   const { username } = useAppSelector((state) => state.auth.data);
 
   const { mutate: mutateImage, isPending: isPendingImage } = useUploadImage();
-  const { data: articles } = useGetArticles(1, 3, "", "", "");
-  const { mutate, isPending, isSuccess } = useCreateArticle();
   const { data: categoryOptions } = useGetCategoriesOption();
+  const { mutate, isPending, isSuccess } = useCreateArticle();
+  const { data: articles } = useGetArticles(1, 3, "", "", "");
 
   const { isOnPreview } = useAppSelector((state) => state.state);
 

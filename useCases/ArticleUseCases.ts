@@ -10,6 +10,7 @@ import { useQuery, UseQueryOptions, useMutation, useQueryClient } from "@tanstac
 import { ArticlesResponse } from "@/features/User/Articles/type";
 import { AxiosError } from "axios";
 import { toast } from "sonner";
+import { Article } from "@/features/User/Articles/type";
 
 export const useGetArticles = (
   page: number = 1,
@@ -24,12 +25,12 @@ export const useGetArticles = (
   });
 };
 
-export const useGetArticleById = (id: string, options?: UseQueryOptions) => {
-  return useQuery({
+export const useGetArticleById = (id: string, options?: Omit<UseQueryOptions<Article, Error, Article, [string, string]>, 'queryKey' | 'queryFn'>) => {
+  return useQuery<Article, Error, Article, [string, string]>({
     queryKey: ["article", id],
     queryFn: () => getArticleById(id),
-    // enabled: !!id && (options?.enabled ?? true),
-    // ...options,
+    enabled: !!id && (options?.enabled ?? true),
+    ...options,
   });
 };
 

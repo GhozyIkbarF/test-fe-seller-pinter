@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState, useEffect, use } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -54,8 +54,10 @@ export default function ArticleForm() {
   const { username } = useAppSelector((state) => state.auth.data);
 
   const { data: categoryOptions, isSuccess: isCategorySuccess } = useGetCategoriesOption();
-  const { data: article } = useGetArticleById(id);
   const { data: articles } = useGetArticles(1, 3, "", "", '');
+  const { data: article } = useGetArticleById(id, {
+      enabled: isCategorySuccess,
+  });
   const { mutate: mutateImage, isPending: isPendingImage } = useUploadImage();
   const { mutate, isPending, isSuccess } = useUpdateArticle(id);
 
@@ -78,7 +80,7 @@ export default function ArticleForm() {
       });
       setPreview(article.imageUrl ?? null);
     }
-  }, [article, form]);
+  }, [article]);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);

@@ -46,7 +46,7 @@ const ArticlesFeature = () => {
         limit={limit}
         page={page}
         setPage={setPage}
-        totalPages={(data?.total ?? 0) / limit + 1 || 0}
+        totalPages={Math.ceil((data?.total ?? 0) / limit) || 0}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         category={category}

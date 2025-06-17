@@ -48,7 +48,7 @@ const Pagination = ({
       </div>
 
       <button
-        disabled={currentPage === totalPages || totalPages < 2}
+        disabled={currentPage === totalPages}
         onClick={() => onPageChange(currentPage + 1)}
         className="flex items-center px-2 py-1 rounded disabled:text-gray-300 disabled:pointer-events-none cursor-pointer"
       >

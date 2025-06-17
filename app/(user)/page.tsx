@@ -69,7 +69,7 @@ export default function Home() {
       <main className="flex-grow bg-gray-50 py-10 lg:pb-24">
         <div className="container mx-auto px-4 space-y-6">
           <span className="hidden lg:block text-slate-600 font-medium text-md">
-            Showing : {limit || 0} of {limit * (data?.total ?? 0)} articles
+            Showing : {limit || 0} of {(data?.total ?? 0)} articles
           </span>
           {isLoading ? (
             <div className="flex justify-center items-center h-64">
@@ -86,7 +86,7 @@ export default function Home() {
               <div className="mt-12 flex justify-center">
                 <Pagination
                   currentPage={page}
-                  totalPages={data?.total || 0}
+                  totalPages={Math.ceil(data?.total / limit)  || 0}
                   limit={limit || 9}
                   onPageChange={(newPage) => {
                     if (newPage !== page) {
