@@ -1,5 +1,4 @@
-import { LogOut, X } from "lucide-react";
-// import logo from "@/assets/logo.svg";
+import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { GenerateRoutes } from "./sidebarMenu";
@@ -7,6 +6,10 @@ import { RouteList } from "@/constants/route";
 import { useRoute } from "./hook";
 import { cn } from "@/lib/utils";
 import Logo from "@/public/Logo.svg";
+import { useAppSelector, useAppDispatch } from "@/store/hooks";
+import { setDialogLogout } from "@/store/slices/counterSlice";
+import { logout } from "@/store/slices/authSlice";
+import AlertLogout from "@/components/common/alert-logout";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -21,6 +24,9 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     handleHeaderClick,
     handleSetHeader,
   } = useRoute();
+  const { dialogLogout } = useAppSelector((state) => state.state);
+
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -70,6 +76,14 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             />
           </nav>
         </div>
+
+        <AlertLogout
+         isDialogOpen={dialogLogout}
+         setIsDialogOpen={(open: boolean) => dispatch(setDialogLogout(open))}
+         mutate={() => {
+           dispatch(logout());
+          }}
+        />
       </div>
     </>
   );

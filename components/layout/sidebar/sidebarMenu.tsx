@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { Route } from "@/types";
 import { useAppDispatch } from "@/store/hooks";
-import { setTitle } from "@/store/slices/counterSlice";
+import { setTitle, setDialogLogout } from "@/store/slices/counterSlice";
 
 type RenderMenuProps = {
   items: Route[];
@@ -63,6 +63,30 @@ export const GenerateRoutes = (props: RenderMenuProps) => {
                   <span className="text-xs lg:text-sm">{item.label}</span>
                 </div>
               </Link>
+            </li>
+          );
+        }
+
+        if (item.routeType === 'action') {
+          return (
+            <li key={item.label}>
+              <button
+                className={cn(
+                  "w-full flex items-center justify-between py-2 px-4 rounded-[6px] text-[16px] font-medium cursor-pointer transition-colors",
+                  // isActive(fullPath) && "bg-[rgba(255,255,255,0.2)]"
+                )}
+                onClick={() => {
+                  dispatch(setDialogLogout(true));
+                  // dispatch(setTitle(item.label));
+                  // handleHeaderClick(fullPath);
+                  // handleSetHeader(item.label);
+                }}
+              >
+                <div className="flex items-center space-x-2 lg:space-x-3">
+                  {Icon && <Icon className="w-4 h-4 lg:w-5 lg:h-5" />}
+                  <span className="text-xs lg:text-sm">{item.label}</span>
+                </div>
+              </button>
             </li>
           );
         }

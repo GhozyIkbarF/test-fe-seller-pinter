@@ -6,3 +6,9 @@ export interface AlertDeleteProps {
   mutateDelete: () => void;
   isPendingDelete: boolean;
 }
+
+export interface AlertLogoutProps {
+  isDialogOpen: boolean;
+  setIsDialogOpen: (open: boolean) => void;
+  mutate: () => void;
+}

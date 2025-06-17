@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSearch } from '@/hooks/useSearch';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

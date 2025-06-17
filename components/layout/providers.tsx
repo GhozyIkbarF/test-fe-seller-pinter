@@ -4,7 +4,6 @@ import { Provider } from "react-redux";
 import { store } from "@/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "../ui/sonner";
-// import "react-quill/dist/quill.snow.css";
 
 function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = React.useState(

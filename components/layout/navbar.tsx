@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type NavHeaderProps = {
   title?: string;
@@ -61,13 +62,14 @@ const TopNavbar = (props: NavHeaderProps) => {
         //   height={40}
         //   className="w-24 h-8 object-contain"
         // />
-        <Image
-          src={Logo2}
-          alt="Logo2"
-          width={100}
-          height={40}
-          className="w-24 h-8 object-contain"
-        />
+        <Link href="/" className="flex items-center">
+          <Image
+            src={Logo2}
+            alt="Logo"
+            width={100}
+            height={100}
+          />
+        </Link>
       )}
 
       <div className="flex items-center space-x-1.5">

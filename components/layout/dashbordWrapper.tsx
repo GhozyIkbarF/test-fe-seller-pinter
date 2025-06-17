@@ -3,14 +3,14 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "@/components/layout/sidebar/sidebar";
 import TopNavbar from "./navbar";
 import { setUser } from "@/store/slices/authSlice";
-import { useDispatch } from "react-redux";
 import { useGetUserProfile } from "@/useCases/UserUserCases";
 import Image from "next/image";
 import Logo2 from "@/public/Logo2.svg";
 import { usePathname } from "next/navigation";
 import Footer from "./footer";
 import { useRouter } from "next/navigation";
-import { useAppSelector } from "@/store/hooks";
+import { useAppSelector, useAppDispatch } from "@/store/hooks";
+import AlertLogout from "../common/alert-logout";
 
 export default function DashboardWrapper({
   children,
@@ -18,14 +18,14 @@ export default function DashboardWrapper({
   children: React.ReactNode;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { isOnPreview } = useAppSelector((state) => state.state);
+  const { dialogLogout } = useAppSelector((state) => state.state);
   const { data: userProfile, isLoading } = useGetUserProfile();
 
   const pathname = usePathname();
   const isAdminSide = pathname.includes("/admin");
   const router = useRouter();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (userProfile) {

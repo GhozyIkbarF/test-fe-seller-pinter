@@ -3,7 +3,7 @@ import Image from "next/image";
 import ArticleCard from "@/components/common/article-card";
 import { Article } from "@/features/User/Articles/type";
 
-type PreviewArticleProps = {
+interface PreviewArticleProps {
         title: string;
         content: string;
         imageUrl?: string;
@@ -12,8 +12,8 @@ type PreviewArticleProps = {
             username: string;
         };
         articles?: Article[];
-
 };
+
 const PreviewArticle = (article: PreviewArticleProps) => {
     return (
     <div className="bg-white pt-10">

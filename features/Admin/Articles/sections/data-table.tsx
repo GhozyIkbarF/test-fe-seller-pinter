@@ -2,7 +2,6 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -16,7 +15,6 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import DataTableLoader from "@/components/common/data-table-loader";
 import Link from "next/link"
-import { cn } from "@/lib/utils";
 import { useGetCategoriesOption } from "@/useCases/CategoryUseCases";
 
 type CategoryOption = {

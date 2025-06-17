@@ -1,6 +1,5 @@
 "use client";
 import { DataTable } from "./sections/data-table";
-import { useAppSelector } from "@/store/hooks";
 import {
   useGetCategories,
   useDeleteCategory,
@@ -12,9 +11,9 @@ import AlertDelete from "@/components/common/alert-delete";
 import DialogForm from "./sections/modal-add-category";
 import DataTableColumnAction from "@/components/common/data-table-action";
 import { useEffect } from "react";
+import { formatDateTime } from "@/lib/utils";
 
 const CategoriesFreature = () => {
-  //   const { role, username, id } = useAppSelector((state) => state.auth.data);
   const {
     form,
     page,
@@ -35,7 +34,7 @@ const CategoriesFreature = () => {
     setIsOpenAlertDelete,
   } = UseCategoryFeature();
 
-  const { data, isLoading, refetch } = useGetCategories(
+  const { data, isLoading } = useGetCategories(
     page,
     limit,
     debouncedSearch
@@ -98,6 +97,11 @@ const CategoriesFreature = () => {
           {
             header: "Created At",
             accessorKey: "createdAt",
+            cell: (row) => (
+              <span className="text-sm text-gray-500">
+                {formatDateTime(row.createdAt, "MMMM dd, yyyy HH:mm:ss")}
+              </span>
+            ),
           },
           {
             header: "Actions",
@@ -111,8 +115,6 @@ const CategoriesFreature = () => {
                   setIsEdit={setIsOpenDialogForm}
                   setIsDialogOpen={setIsOpenAlertDelete}
                   handleAction={(action) => {
-                    // console.log(data);
-                    console.log(action, 'action');
                     setSelectedId(row.id || "");
                     setActionForm(action);
                     handleSelectData(data?.data || [], row.id || "", action);
