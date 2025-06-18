@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useGetArticles } from "@/useCases/ArticleUseCases";
 import { useSearch } from "@/hooks/useSearch";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 type UseArticlesFeatureProps = {
   userId?: string;
@@ -27,6 +28,8 @@ export const UseArticlesFreature = ({
   const [selectedId, setSelectedId] = useState("");
   const [isOpenAlert, setIsOpenAlert] = useState(false);
 
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   const { data, isLoading } = useGetArticles(
     page,
     limit,
@@ -44,6 +47,7 @@ export const UseArticlesFreature = ({
     searchQuery,
     selectedId,
     isOpenAlert,
+    isMobile,
     setPage,
     setCategory,
     setSearchQuery,

@@ -37,7 +37,7 @@ const AlertLogout: React.FC<AlertLogoutProps> = (props) => {
             onClick={() => {
               mutate();
             }}
-            className="bg-blue-500 text-white transition-all hover:bg-blue-500/80"
+            className="bg-blue-600 text-white transition-all hover:bg-blue-600/80"
           >
            Logout
           </AlertDialogAction>

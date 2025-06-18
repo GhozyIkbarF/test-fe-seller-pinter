@@ -1,4 +1,4 @@
-import { formatDateTime } from "@/lib/utils"
+import { formatDate } from "@/lib/utils"
 import Image from "next/image";
 import ArticleCard from "@/components/common/article-card";
 import { Article } from "@/features/User/Articles/type";
@@ -21,7 +21,7 @@ const PreviewArticle = (article: PreviewArticleProps) => {
         <div className="text-center space-y-2">
           <div className="fllex justify-center items-center">
             <span className="text-sm text-gray-500">
-              {formatDateTime(article.createdAt, "MMM dd, yyyy")}
+              {formatDate(article.createdAt, "MMMM dd, yyyy")}
             </span>
             <span className="mx-2 text-gray-500">|</span>
             <span className="text-sm text-gray-500">

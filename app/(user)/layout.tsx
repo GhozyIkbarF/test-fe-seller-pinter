@@ -1,6 +1,6 @@
 'use client';
 import React from "react";
-import DashboardWrapper from "@/components/layout/dashbordWrapper";
+import LayoutWrapper from "@/components/layout/layoutWrapper";
 
 export default function UserLayout({
   children,
@@ -8,8 +8,8 @@ export default function UserLayout({
   children: React.ReactNode;
 }) {
   return (
-    <DashboardWrapper >
+    <LayoutWrapper >
       {children}
-    </DashboardWrapper>
+    </LayoutWrapper>
   );
 }

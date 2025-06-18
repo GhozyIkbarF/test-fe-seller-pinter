@@ -9,7 +9,7 @@ import {
   useDeleteArticle,
 } from "@/useCases/ArticleUseCases";
 import Image from "next/image";
-import { formatDateTime } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { slugify } from "@/lib/utils";
 
@@ -85,7 +85,7 @@ const ArticlesFeature = () => {
             accessorKey: "createdAt",
             cell: (row) => (
               <span className="text-sm text-gray-500">
-                {formatDateTime(row.createdAt, "MMMM dd, yyyy HH:mm:ss")}
+                {formatDate(row.createdAt, "MMMM dd, yyyy HH:mm:ss")}
               </span>
             ),
           },

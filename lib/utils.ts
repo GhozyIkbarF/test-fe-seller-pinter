@@ -7,16 +7,16 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatDate(dateString: string) {
-  const date = new Date(dateString)
-  return new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  }).format(date)
-}
+// export function formatDate(dateString: string) {
+//   const date = new Date(dateString)
+//   return new Intl.DateTimeFormat("en-US", {
+//     month: "short",
+//     day: "numeric",
+//     year: "numeric",
+//   }).format(date)
+// }
 
-export function formatDateTime(dateString: string, options?: string): string {
+export function formatDate(dateString: string, options?: string): string {
   const formatted = format(new Date(dateString), options ? options : "MMMM dd, yyyy HH:mm:ss");
   return formatted;
 }

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const articleSchema = z.object({
-  imageUrl: z.any(), 
+  imageUrl: z.string().min(1, "Please enter picture"),
   title: z.string().min(1, "Please enter title"),
   categoryId: z.string().min(1, "Please select category"),
   content: z.string().min(1, "Content field cannot be empty"),

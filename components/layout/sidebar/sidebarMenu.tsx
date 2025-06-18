@@ -50,7 +50,6 @@ export const GenerateRoutes = (props: RenderMenuProps) => {
                   isActive(fullPath) && "bg-[rgba(255,255,255,0.2)]"
                 )}
                 onClick={() => {
-                  dispatch(setTitle(item.label));
                   handleHeaderClick(fullPath);
                   handleSetHeader(item.label);
                 }}
@@ -73,13 +72,9 @@ export const GenerateRoutes = (props: RenderMenuProps) => {
               <button
                 className={cn(
                   "w-full flex items-center justify-between py-2 px-4 rounded-[6px] text-[16px] font-medium cursor-pointer transition-colors",
-                  // isActive(fullPath) && "bg-[rgba(255,255,255,0.2)]"
                 )}
                 onClick={() => {
                   dispatch(setDialogLogout(true));
-                  // dispatch(setTitle(item.label));
-                  // handleHeaderClick(fullPath);
-                  // handleSetHeader(item.label);
                 }}
               >
                 <div className="flex items-center space-x-2 lg:space-x-3">

@@ -24,8 +24,8 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     handleHeaderClick,
     handleSetHeader,
   } = useRoute();
+  
   const { dialogLogout } = useAppSelector((state) => state.state);
-
   const dispatch = useAppDispatch();
 
   return (

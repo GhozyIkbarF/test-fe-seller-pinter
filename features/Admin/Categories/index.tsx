@@ -11,7 +11,7 @@ import AlertDelete from "@/components/common/alert-delete";
 import DialogForm from "./sections/modal-add-category";
 import DataTableColumnAction from "@/components/common/data-table-action";
 import { useEffect } from "react";
-import { formatDateTime } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 
 const CategoriesFreature = () => {
   const {
@@ -99,7 +99,7 @@ const CategoriesFreature = () => {
             accessorKey: "createdAt",
             cell: (row) => (
               <span className="text-sm text-gray-500">
-                {formatDateTime(row.createdAt, "MMMM dd, yyyy HH:mm:ss")}
+                {formatDate(row.createdAt, "MMMM dd, yyyy HH:mm:ss")}
               </span>
             ),
           },
@@ -126,7 +126,7 @@ const CategoriesFreature = () => {
         ]}
       />
       <AlertDelete
-        title="Delete Category"
+        title="Category"
         message={`Delete category “${seledtedData?.name}”? This will remove it from master data permanently.`}
         isDialogDeleteOpen={isOpenAlertDelete}
         isPendingDelete={isPendingDelete}

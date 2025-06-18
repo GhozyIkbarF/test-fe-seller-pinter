@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store/hooks";
+import { setTitle } from "@/store/slices/counterSlice";
+
 
 export const useRoute = () => {
   const [openHeader, setOpenHeader] = useState<string | null>(null);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const pathname = usePathname() || "";
 
   const normalizePath = (path: string, depth: number) => {
@@ -25,8 +27,7 @@ export const useRoute = () => {
   };
 
   const handleSetHeader = (title: string) => {
-   console.log('title:', title);
-   
+    dispatch(setTitle(title));
   };
 
   const isActive = (href: string): boolean => {

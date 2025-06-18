@@ -99,7 +99,6 @@ export default function ArticleForm() {
 
     setError("");
     setPreview(URL.createObjectURL(file));
-    form.setValue("imageUrl", file);
 
     mutateImage(file, {
       onSuccess: (data) => {
@@ -111,6 +110,7 @@ export default function ArticleForm() {
           toast.error("An error occurred", {
             description: errorMessage.error,
           });
+          setPreview(null);
         },
     });
   };
@@ -152,7 +152,7 @@ export default function ArticleForm() {
               <FormItem>
                 <FormLabel>Thumbnails</FormLabel>
                 <FormControl>
-                  <div className="max-w-56 border border-dashed border-gray-300 p-6 rounded-md text-center cursor-pointer hover:bg-gray-50 transition">
+                  <div className="max-w-56 border border-dashed bg-white border-gray-300 p-6 rounded-md text-center cursor-pointer">
                     {isPendingImage ? (
                       <div className="flex justify-center items-center">
                         <span className="text-gray-500">Uploading...</span>

@@ -10,8 +10,11 @@ import { usePathname } from "next/navigation";
 import Footer from "./footer";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/store/hooks";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { cn } from "@/lib/utils";
+import path from "path";
 
-export default function DashboardWrapper({
+export default function LayoutWrapper({
   children,
 }: {
   children: React.ReactNode;
@@ -21,6 +24,7 @@ export default function DashboardWrapper({
 
   const pathname = usePathname();
   const isAdminSide = pathname.includes("/admin");
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const router = useRouter();
 
   const dispatch = useAppDispatch();
@@ -55,7 +59,7 @@ export default function DashboardWrapper({
   ) : (
     <div className="relative flex flex-col justify-between min-h-screen bg-white">
       <TopNavbar />
-        <div className="mt-20">{children}</div>
+        <div className={cn(pathname === '/' && !isMobile ? 'mt-0' : 'mt-[68px]')}>{children}</div>
       <Footer />
     </div>
   );

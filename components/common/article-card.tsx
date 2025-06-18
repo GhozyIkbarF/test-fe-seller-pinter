@@ -2,21 +2,16 @@
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
-// import { useRouter } from "next/navigation";
 import { Article } from "@/features/User/Articles/type";
 import { slugify } from "@/lib/utils";
 import Link from "next/link";
 
 const ArticleCard = (article: Article) => {
-  // const router = useRouter();
-  // const handleClick = () => {
-  //   router.push(`/articles/${article.id}-${slugify(article.title)}`);
-  // };
+  
   return (
     <Link
       href={`/articles/${article.id}-${slugify(article.title)}`}
       className="overflow-hidden flex flex-col h-full gap-4 cursor-pointer"
-      // onClick={handleClick}
     >
       <div className="relative h-48 w-full">
         <Image
@@ -28,7 +23,7 @@ const ArticleCard = (article: Article) => {
       </div>
       <div className="space-y-2">
         <span className="text-xs md:text-sm text-slate-600 font-normal">
-          {formatDate(article.createdAt)}
+          {formatDate(article.createdAt, "MMMM dd, yyyy")}
         </span>
         <h3 className="font-semibold text-md md:text-lg text-slate-900 line-clamp-2">
           {article.title}

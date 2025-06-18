@@ -1,5 +1,5 @@
 'use client'
-import DashboardWrapper from "@/components/layout/dashbordWrapper";
+import LayoutWrapper from "@/components/layout/layoutWrapper";
 
 export default function AdminLayout({
   children,
@@ -7,8 +7,8 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <DashboardWrapper>
+    <LayoutWrapper>
       {children}
-    </DashboardWrapper>
+    </LayoutWrapper>
   );
 }

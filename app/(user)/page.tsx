@@ -5,6 +5,7 @@ import InputSearch from "@/components/common/input-search";
 import InputSelect from "@/components/common/input-select";
 import { UseArticlesFreature } from "@/features/User/Articles/hooks";
 import { useGetCategoriesOption } from "@/useCases/CategoryUseCases";
+import { cn } from "@/lib/utils";
 
 type Options = {
   name: string
@@ -18,6 +19,7 @@ export default function Home() {
     data,
     isLoading,
     searchQuery,
+    isMobile,
     setPage,
     setCategory,
     setSearchQuery,
@@ -26,22 +28,23 @@ export default function Home() {
   const { data: optionsData } = useGetCategoriesOption();
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Hero */}
-      <header className="relative flex items-center justify-center bg-blue-ocean h-[500px] text-white p-6 md:p-10">
+    <div className="relative min-h-screen flex flex-col">
+      <header className={cn("relative flex items-center justify-center bg-blue-ocean h-[500px] text-white p-6 md:p-10", 
+        !isMobile && '-mt-[68px]'
+      )}>
         <div className="absolute inset-0 bg-blue-ocean/85 clip-diagonal z-10" />
         <div className="absolute inset-0 bg-cover z-0 opacity-90" style={{ backgroundImage: "url('/hero-bg-image.jpg')" }}></div>
         <div className="relative z-20 text-center flex flex-col items-center space-y-10 md:w-1/2 max-w-[730px]">
           <div className="flex flex-col items-center gap-y-3">
-            <span className="font-bold text-sm lg:text-[16px]">designauth</span>
-            <h2 className="text-4xl lg:text-5xl font-medium">
-              The Journal: Design Resources, Interviews, and Industry News
+            <span className="font-bold text-sm lg:text-[16px]">Blog genzet</span>
+            <h2 className="text-5xl font-medium">
+              The Journal : Design Resources, Interviews, and Industry News
             </h2>
             <p className="text-xl lg:text-2xl font-normal">
               Your Daily Dose of Design Insights!
             </p>
           </div>
-          <div className="flex flex-col lg:flex-row justify-between bg-blue-500 rounded-[12px] max-w-[608px] w-full p-2.5 gap-2">
+          <div className="flex flex-col lg:flex-row justify-between bg-blue-500 rounded-[12px] max-w-[608px] w-full lg:w-5/6 p-2.5 gap-2">
             <InputSelect<Options>
               value={category}
               placeholder="Select Category"
@@ -54,7 +57,7 @@ export default function Home() {
                 keyLabel: "name",
                 keyValue: "name",
               }}
-              className="w-full lg:w-1/3 bg-white/90 text-black"
+              className="w-full lg:flex-2/5 bg-white/90 text-black"
             />
             <InputSearch
               value={searchQuery}
@@ -65,7 +68,6 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="flex-grow bg-gray-50 py-10 lg:pb-24">
         <div className="container mx-auto px-4 space-y-6">
           <span className="hidden lg:block text-slate-600 font-medium text-md">

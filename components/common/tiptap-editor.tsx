@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useEffect } from "react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
@@ -17,6 +18,7 @@ import {
   Italic,
   Undo2,
   Redo2,
+  Minus
 } from "lucide-react";
 
 export default function TiptapEditor({
@@ -52,9 +54,14 @@ export default function TiptapEditor({
     },
   });
 
+  useEffect(() => {
+    if (editor && content !== editor.getHTML()) {
+      editor.commands.setContent(content);
+    }
+  }, [content, editor]);
+
   return (
     <div>
-      {/* Toolbar */}
       <div className="flex items-center gap-4 bg-white border border-gray-300 rounded-t-md p-4 ">
         <div className="space-x-1">
           <button
@@ -100,7 +107,7 @@ export default function TiptapEditor({
             <Italic className="size-4" />
           </button>
         </div>
-        <span>|</span>
+        <Minus className="size-6 text-gray-200 rotate-90" />
         <div>
           <button
             type="button"
@@ -115,7 +122,7 @@ export default function TiptapEditor({
             <ImageIcon className="size-4" />
           </button>
         </div>
-        <span>|</span>
+        <Minus className="size-6 text-gray-200 rotate-90" />
         <div className="space-x-1">
           <button
             type="button"
@@ -166,7 +173,6 @@ export default function TiptapEditor({
         </div>
       </div>
 
-      {/* Editor */}
       <EditorContent editor={editor} />
       <div className="rounded-b-md bg-white py-6 px-4 gap-2">
         <span>{editor ? editor.storage.characterCount.words() : 0} words</span>
