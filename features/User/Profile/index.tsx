@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 const UserProfileFeature = () => {
   const { data: user } = useGetUserProfile();
   const path = usePathname();
-  const isAdminSide = path.includes("/admin");
+  const isAdminSide = path.startsWith("/admin");
   return (
     <div className={cn("bg-white w-full p-6 rounded-lg", isAdminSide && "h-screen")}>
       <div className="px-6 py-4 space-y-9 max-w-[400px] mx-auto text-slate-900">
@@ -44,7 +44,7 @@ const UserProfileFeature = () => {
             </tbody>
           </table>
         </div>
-        <Link href={isAdminSide ? "/admin/articles" : "/"} className="w-full">
+        <Link href={isAdminSide ? "/admin" : "/"} className="w-full">
           <Button type="button" variant="secondary" className="w-full">
             Back to {isAdminSide ? "Dashboard" : "Home"}
           </Button>

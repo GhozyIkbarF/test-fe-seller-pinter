@@ -17,7 +17,11 @@ const ArticleCard = (article: Article) => {
         <Image
           src={article.imageUrl || "/placeholder.svg"}
           alt={article.title}
+          // loading="lazy"
+          priority
+          // sizes=""
           fill
+          sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover rounded-[12px]"
         />
       </div>

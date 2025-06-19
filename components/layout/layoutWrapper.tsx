@@ -9,21 +9,25 @@ import Logo2 from "@/public/Logo2.svg";
 import { usePathname } from "next/navigation";
 import Footer from "./footer";
 import { useRouter } from "next/navigation";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { cn } from "@/lib/utils";
-import path from "path";
+import { User } from "lucide-react";
 
 export default function LayoutWrapper({
+  isUserLayout = false,
   children,
 }: {
+  isUserLayout?: boolean;
   children: React.ReactNode;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { data: userProfile, isLoading } = useGetUserProfile();
 
+  // const { isOnPreview } = useAppSelector((state) => state.state);
+
   const pathname = usePathname();
-  const isAdminSide = pathname.includes("/admin");
+  const isAdminSide = pathname.startsWith("/admin");
   const isMobile = useMediaQuery("(max-width: 768px)");
   const router = useRouter();
 
@@ -32,7 +36,7 @@ export default function LayoutWrapper({
   useEffect(() => {
     if (userProfile) {
       dispatch(setUser(userProfile));
-      if (pathname.includes("/admin") && userProfile.role !== "Admin") {
+      if (isAdminSide && userProfile.role !== "Admin") {
         router.push("/");
       }
     }
@@ -46,7 +50,25 @@ export default function LayoutWrapper({
     );
   }
 
-  return isAdminSide ? (
+  const previewPage = ["/admin/articles/pr"];
+
+  const UserLayout = () => {
+    return (
+      <div className="flex flex-col min-h-screen bg-white">
+        <TopNavbar />
+        <div
+          className={cn(pathname === "/" && !isMobile ? "mt-0" : "mt-[68px]")}
+        >
+          {children}
+        </div>
+        <Footer />
+      </div>
+    );
+  };
+
+  return isUserLayout ? (
+    <UserLayout />
+  ) : isAdminSide ? (
     <div className="relative flex h-screen bg-gray-100">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div className="lg:ml-[267px] relative flex-1 flex flex-col">
@@ -57,10 +79,6 @@ export default function LayoutWrapper({
       </div>
     </div>
   ) : (
-    <div className="relative flex flex-col justify-between min-h-screen bg-white">
-      <TopNavbar />
-        <div className={cn(pathname === '/' && !isMobile ? 'mt-0' : 'mt-[68px]')}>{children}</div>
-      <Footer />
-    </div>
+    <UserLayout />
   );
 }

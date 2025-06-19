@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import DataTableLoader from "@/components/common/data-table-loader";
 import Link from "next/link"
-import { useGetCategoriesOption } from "@/useCases/CategoryUseCases";
+import { useGetInfiniteCategories } from "@/useCases/CategoryUseCases";
 
 type CategoryOption = {
   name: string;
@@ -60,8 +60,15 @@ export function DataTable<TData>({
   setCategory,
   totalPages,
 }: DataTableProps<TData>) {
+
+  const {
+        data: categoriesData,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+      } = useGetInfiniteCategories({ limit: 9 });
+      const categoryOptions = categoriesData?.pages.flatMap((p) => p.data) ?? [];
   
-  const { data: categoryOptions } = useGetCategoriesOption();
 
   return (
     <div className="w-full bg-gray-50 rounded-lg shadow-md overflow-hidden">
@@ -79,11 +86,14 @@ export function DataTable<TData>({
                 }
                 setCategory && setCategory(value);
               }}
-              data={categoryOptions?.data || []}
+              data={categoryOptions}
               options={{
                 keyLabel: "name",
                 keyValue: "name",
               }}
+              fetchNextPage={fetchNextPage}
+              hasNextPage={hasNextPage}
+              isFetchingNextPage={isFetchingNextPage}
               placeholder="Category"
               resetPlaceholder="All Categories"
               className="w-48"

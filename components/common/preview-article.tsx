@@ -1,31 +1,31 @@
-import { formatDate } from "@/lib/utils"
+import { formatDate } from "@/lib/utils";
 import Image from "next/image";
 import ArticleCard from "@/components/common/article-card";
 import { Article } from "@/features/User/Articles/type";
+import { Dot } from "lucide-react";
 
 interface PreviewArticleProps {
-        title: string;
-        content: string;
-        imageUrl?: string;
-        createdAt: string;
-        user: {
-            username: string;
-        };
-        articles?: Article[];
-};
+  title: string;
+  content: string;
+  imageUrl?: string;
+  createdAt: string;
+  user: {
+    username: string;
+  };
+  articles?: Article[];
+}
 
 const PreviewArticle = (article: PreviewArticleProps) => {
-    return (
+  return (
     <div className="bg-white pt-10">
       <div className="container mx-auto px-4">
         <div className="text-center space-y-2">
-          <div className="fllex justify-center items-center">
+          <div className="flex justify-center items-center gap-1">
             <span className="text-sm text-gray-500">
               {formatDate(article.createdAt, "MMMM dd, yyyy")}
             </span>
-            <span className="mx-2 text-gray-500">|</span>
-            <span className="text-sm text-gray-500">
-              Created by {article.user.username}
+            <span className="flex text-sm text-gray-500">
+              <Dot className="h-5 w-5" />Created by {article.user.username}
             </span>
           </div>
           <h1 className="text-3xl font-semibold text-center">
@@ -56,7 +56,7 @@ const PreviewArticle = (article: PreviewArticleProps) => {
         </div>
       </div>
     </div>
-    )
-}
+  );
+};
 
 export default PreviewArticle;

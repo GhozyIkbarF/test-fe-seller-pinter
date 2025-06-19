@@ -27,12 +27,12 @@ type NavHeaderProps = {
 };
 
 const TopNavbar = (props: NavHeaderProps) => {
-  const { username } = useAppSelector((state) => state.auth.data);
+  const { username, role } = useAppSelector((state) => state.auth.data);
   const { titlePage, isOnPreview } = useAppSelector((state) => state.state);
   
   const dispatch = useAppDispatch();
   const pathname = usePathname();
-  const isAdminSide = pathname.includes("/admin");
+  const isAdminSide = pathname.startsWith("/admin");
   const isMobile = useMediaQuery("(max-width: 768px)");
   const isHomePageAndNotMobile = pathname === "/" && !isMobile;
   const router = useRouter();
@@ -51,7 +51,6 @@ const TopNavbar = (props: NavHeaderProps) => {
     >
       {isAdminSide ? (
         <div className="flex items-center space-x-4">
-          {/* Mobile Menu Button */}
           <Button
             size="sm"
             className="lg:hidden"
@@ -72,7 +71,6 @@ const TopNavbar = (props: NavHeaderProps) => {
       )}
 
       <div className="flex items-center space-x-1.5">
-        {/* User Avatar */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild className="cursor-pointer">
             <button className="flex items-center gap-2 bg-transparent outline-none focus:outline-none">
@@ -101,6 +99,19 @@ const TopNavbar = (props: NavHeaderProps) => {
               My Account
             </DropdownMenuItem>
             <DropdownMenuSeparator />
+            {role === "Admin" && !isAdminSide && (
+              <>
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={() =>
+                    router.push("/admin")
+                  }
+                >
+                  Dashboard admin
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+              </>
+            )}
             <DropdownMenuItem
               className="text-red-500 cursor-pointer"
               onClick={() => {

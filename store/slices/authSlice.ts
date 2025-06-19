@@ -49,8 +49,8 @@ export const authSlice = createSlice({
     },
     logout(state) {
       removeCookie();
-      window.location.href = "/";
-      state.data = initialAuthState.data;
+      window.location.href = "/auth/login";
+      // state.data = initialAuthState.data;
     },
   },
   // extraReducers: (builder) => {

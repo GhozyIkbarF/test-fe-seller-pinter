@@ -122,7 +122,7 @@ export default function RegisterFeature() {
         </CardContent>
         <CardFooter className="flex justify-center text-sm">
           <span className="text-center">already have account? {" "}
-            <Link href="/auth/login" className="text-blue-600 hover:underline">
+            <Link href="/login" className="text-blue-600 hover:underline">
               Login
             </Link>
           </span>

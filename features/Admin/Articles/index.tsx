@@ -20,6 +20,9 @@ const ArticlesFeature = () => {
     page,
     limit,
     category,
+    hasNextPage,
+    isFetchingNextPage,
+    categoryOptions,
     data,
     isLoading,
     searchQuery,
@@ -27,6 +30,7 @@ const ArticlesFeature = () => {
     isOpenAlert,
     setPage,
     setCategory,
+    fetchNextPage,
     setSearchQuery,
     setSelectedId,
     setIsOpenAlert,
@@ -101,7 +105,7 @@ const ArticlesFeature = () => {
                   setIsDialogOpen={setIsOpenAlert}
                   handleAction={(action) => {
                     setSelectedId(row.id || "");
-                    action === "edit" && router.push(`/admin/articles/${row.id}/edit/`);
+                    action === "edit" && router.push(`/admin/articles/edit/${row.id}`);
                   }}
                 />
               </div>

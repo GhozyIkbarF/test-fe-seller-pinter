@@ -7,15 +7,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-// export function formatDate(dateString: string) {
-//   const date = new Date(dateString)
-//   return new Intl.DateTimeFormat("en-US", {
-//     month: "short",
-//     day: "numeric",
-//     year: "numeric",
-//   }).format(date)
-// }
-
 export function formatDate(dateString: string, options?: string): string {
   const formatted = format(new Date(dateString), options ? options : "MMMM dd, yyyy HH:mm:ss");
   return formatted;
@@ -28,6 +19,50 @@ export function slugify(text: string): string {
     .trim()
     .replace(/\s+/g, "-");
 }
+
+export function stripHtml(html: string): string {
+  return html.replace(/<[^>]+>/g, "");
+}
+
+const isBrowser = typeof window !== "undefined";
+
+export const storage = {
+  set: (key: string, value: any) => {
+    if (!isBrowser) return;
+    try {
+      window.localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      
+    }
+  },
+
+  get: <T>(key: string): T | null => {
+    if (!isBrowser) return null;
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) as T : null;
+    } catch (error) {
+      return null;
+    }
+  },
+
+  remove: (key: string) => {
+    if (!isBrowser) return;
+    try {
+      window.localStorage.removeItem(key);
+    } catch (error) {
+    }
+  },
+
+  clear: () => {
+    if (!isBrowser) return;
+    try {
+      window.localStorage.clear();
+    } catch (error) {
+    }
+  },
+};
+
 
 export const getCookie = () => Cookies.get("token");
 export const setCookie = (value: string) => Cookies.set("token", value);
