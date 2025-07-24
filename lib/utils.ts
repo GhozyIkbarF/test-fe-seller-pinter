@@ -24,6 +24,14 @@ export function stripHtml(html: string): string {
   return html.replace(/<[^>]+>/g, "");
 }
 
+export function pathToRegex(path: string) {
+  const regex = path
+    .replace(/:[^/]+/g, "[^/]+")
+    .replace(/\//g, "\\/");
+
+  return new RegExp(`^${regex}$`);
+}
+
 const isBrowser = typeof window !== "undefined";
 
 export const storage = {

@@ -54,10 +54,10 @@ export default function LayoutWrapper({
 
   const UserLayout = () => {
     return (
-      <div className="flex flex-col min-h-screen bg-white">
+      <div className="flex flex-col justify-between min-h-screen bg-white">
         <TopNavbar />
         <div
-          className={cn(pathname === "/" && !isMobile ? "mt-0" : "mt-[68px]")}
+          className={cn('max-h-max', pathname === "/" && !isMobile ? "mt-0" : "mt-[68px]")}
         >
           {children}
         </div>

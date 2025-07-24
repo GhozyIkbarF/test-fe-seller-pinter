@@ -26,7 +26,7 @@ import Logo2 from "@/public/Logo2.svg";
 export default function LoginFeature() {
   const { form } = useLoginFeature();
 
-  const { mutate, isPending } = useLoginUser();
+  const { mutate, isPending,  } = useLoginUser();
 
   return (
     <main className="flex items-center justify-center min-h-screen bg-gray-100 p-4">

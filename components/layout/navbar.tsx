@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import Logo from "@/public/Logo.svg";
 import Logo2 from "@/public/Logo2.svg";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+import { cn, pathToRegex } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import {
   DropdownMenu,
@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 type NavHeaderProps = {
@@ -29,7 +28,7 @@ type NavHeaderProps = {
 const TopNavbar = (props: NavHeaderProps) => {
   const { username, role } = useAppSelector((state) => state.auth.data);
   const { titlePage, isOnPreview } = useAppSelector((state) => state.state);
-  
+
   const dispatch = useAppDispatch();
   const pathname = usePathname();
   const isAdminSide = pathname.startsWith("/admin");
@@ -37,19 +36,27 @@ const TopNavbar = (props: NavHeaderProps) => {
   const isHomePageAndNotMobile = pathname === "/" && !isMobile;
   const router = useRouter();
 
+  const previewPaths = [
+    "/admin/articles/:id",
+  ];
+
+  const isOnPreviewPage = previewPaths.some((pattern) =>
+    pathToRegex(pattern).test(pathname)
+  );
+
   const { setSidebarOpen } = props;
   return (
     <div
       className={cn(
         "fixed z-40 right-0 left-0 flex justify-between items-center h-[68px] bg-gray-50 px-6 pt-5 pb-4 border-b border-slate-200 text-slate-900 border",
         !isAdminSide && "px-5 lg:px-[60px] py-4 lg:py-8",
-        isAdminSide && !isOnPreview && "lg:ml-[267px]",
+        isAdminSide && !isOnPreviewPage && "lg:ml-[267px]",
         isHomePageAndNotMobile
           ? "bg-transparent relative border-none"
           : "bg-gray-50"
       )}
     >
-      {isAdminSide ? (
+      {isAdminSide && !isOnPreviewPage ? (
         <div className="flex items-center space-x-4">
           <Button
             size="sm"
@@ -61,13 +68,25 @@ const TopNavbar = (props: NavHeaderProps) => {
           <h1 className="text-xl font-semibold">{titlePage}</h1>
         </div>
       ) : (
-        <Link href="/" className="flex items-center">
-          {isHomePageAndNotMobile ? (
-            <Image src={Logo} alt="Logo" width={100} height={100} />
-          ) : (
-            <Image src={Logo2} alt="Logo" width={100} height={100} />
-          )}
-        </Link>
+        <button
+          className="bg-transparent cursor-pointer"
+          onClick={() => {
+            if (isOnPreviewPage ) {
+              router.back();
+            }
+            if (isAdminSide) {
+              router.push("/admin");
+            }
+            router.push("/");
+          }}
+        >
+          <Image
+            src={isHomePageAndNotMobile ? Logo : Logo2}
+            alt="Logo"
+            width={100}
+            height={100}
+          />
+        </button>
       )}
 
       <div className="flex items-center space-x-1.5">
@@ -103,9 +122,7 @@ const TopNavbar = (props: NavHeaderProps) => {
               <>
                 <DropdownMenuItem
                   className="cursor-pointer"
-                  onClick={() =>
-                    router.push("/admin")
-                  }
+                  onClick={() => router.push("/admin")}
                 >
                   Dashboard admin
                 </DropdownMenuItem>

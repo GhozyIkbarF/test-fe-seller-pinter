@@ -9,7 +9,7 @@ import Logo from "@/public/Logo.svg";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { setDialogLogout } from "@/store/slices/counterSlice";
 import { logout } from "@/store/slices/authSlice";
-import AlertLogout from "@/components/common/alert-logout";
+import { AlertLogout } from "@/components/common";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -77,13 +77,16 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           </nav>
         </div>
 
-        <AlertLogout
-         isDialogOpen={dialogLogout}
-         setIsDialogOpen={(open: boolean) => dispatch(setDialogLogout(open))}
-         mutate={() => {
-           dispatch(logout());
-          }}
-        />
+        {/* Logout Button */}
+        {dialogLogout &&
+          <AlertLogout
+            isDialogOpen={dialogLogout}
+            setIsDialogOpen={(open: boolean) => dispatch(setDialogLogout(open))}
+            mutate={() => {
+              dispatch(logout());
+              }}
+          />
+        }
       </div>
     </>
   );

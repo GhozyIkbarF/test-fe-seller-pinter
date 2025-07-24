@@ -1,4 +1,5 @@
 "use client";
+import dynamic from "next/dynamic";
 import { DataTable } from "./sections/data-table";
 import {
   useGetCategories,
@@ -7,11 +8,15 @@ import {
   useUpdateCategory,
 } from "@/useCases/CategoryUseCases";
 import UseCategoryFeature from "./hooks";
-import AlertDelete from "@/components/common/alert-delete";
-import DialogForm from "./sections/modal-add-category";
-import DataTableColumnAction from "@/components/common/data-table-action";
+import { AlertDelete } from "@/components/common";
+import DataTableColumnAction from "@/components/common/data-table-column-action";
 import { useEffect } from "react";
 import { formatDate } from "@/lib/utils";
+
+const DialogForm = dynamic(() =>
+  import("./sections/modal-add-category"),
+  {ssr: false}
+);
 
 const CategoriesFreature = () => {
   const {
@@ -67,16 +72,18 @@ const CategoriesFreature = () => {
   
   return (
     <div>
-      <DialogForm
-        action={actionForm}
-        form={form}
-        isOpen={isOpenDialogForm}
-        setIsOpen={setIsOpenDialogForm}
-        isPendingAdd={isPendingCreate}
-        isPendingUpdate={isPendingUpdate}
-        mutateAdd={mutateCreate}
-        mutateEdit={mutateUpdate}
-      />
+      {isOpenDialogForm && (
+        <DialogForm
+          action={actionForm}
+          form={form}
+          isOpen={isOpenDialogForm}
+          setIsOpen={setIsOpenDialogForm}
+          isPendingAdd={isPendingCreate}
+          isPendingUpdate={isPendingUpdate}
+          mutateAdd={mutateCreate}
+          mutateEdit={mutateUpdate}
+        />
+      )}
       <DataTable
         data={data?.data || []}
         total={data?.totalData || 0}
@@ -125,14 +132,16 @@ const CategoriesFreature = () => {
           },
         ]}
       />
-      <AlertDelete
-        title="Category"
-        message={`Delete category “${seledtedData?.name}”? This will remove it from master data permanently.`}
-        isDialogDeleteOpen={isOpenAlertDelete}
-        isPendingDelete={isPendingDelete}
-        setIsDialogDeleteOpen={setIsOpenAlertDelete}
-        mutateDelete={mutateDelete}
-      />
+      {isOpenAlertDelete && (
+        <AlertDelete
+          title="Category"
+          message={`Delete category “${seledtedData?.name}”? This will remove it from master data permanently.`}
+          isDialogDeleteOpen={isOpenAlertDelete}
+          isPendingDelete={isPendingDelete}
+          setIsDialogDeleteOpen={setIsOpenAlertDelete}
+          mutateDelete={mutateDelete}
+        />
+      )}
     </div>
   );
 };

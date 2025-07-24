@@ -28,7 +28,6 @@ const UseCategoryFeature = () => {
     const handleSelectData = (data: Category[], id:String, action:string) => {
         const selected = data.find((item) => item.id === id);
         if (selected) {
-            console.log(actionForm, 'actionForm');
             setSelectedData(selected);
             action !== 'delete' && form.setValue("name", selected.name);
         }

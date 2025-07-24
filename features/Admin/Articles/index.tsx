@@ -3,16 +3,13 @@ import { DataTable } from "./sections/data-table";
 import { UseArticlesFreature } from "@/features/User/Articles/hooks";
 import { useAppSelector } from "@/store/hooks";
 import { Article } from "@/features/User/Articles/type";
-import DataTableColumnAction from "@/components/common/data-table-action";
-import AlertDelete from "@/components/common/alert-delete";
-import {
-  useDeleteArticle,
-} from "@/useCases/ArticleUseCases";
+import DataTableColumnAction from "@/components/common/data-table-column-action";
+import { AlertDelete } from "@/components/common";
+import { useDeleteArticle } from "@/useCases/ArticleUseCases";
 import Image from "next/image";
 import { formatDate } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { slugify } from "@/lib/utils";
-
 
 const ArticlesFeature = () => {
   const { id } = useAppSelector((state) => state.auth.data);
@@ -20,9 +17,6 @@ const ArticlesFeature = () => {
     page,
     limit,
     category,
-    hasNextPage,
-    isFetchingNextPage,
-    categoryOptions,
     data,
     isLoading,
     searchQuery,
@@ -30,7 +24,6 @@ const ArticlesFeature = () => {
     isOpenAlert,
     setPage,
     setCategory,
-    fetchNextPage,
     setSearchQuery,
     setSelectedId,
     setIsOpenAlert,
@@ -100,12 +93,13 @@ const ArticlesFeature = () => {
               <div className="flex justify-center gap-2">
                 <DataTableColumnAction
                   id={row.id || ""}
-                  customRoutePath={`/articles/${row.id}-${slugify(row.title)}`}
+                  customRoutePath={`/admin/articles/${row.id}`}
                   showEdit
                   setIsDialogOpen={setIsOpenAlert}
                   handleAction={(action) => {
                     setSelectedId(row.id || "");
-                    action === "edit" && router.push(`/admin/articles/edit/${row.id}`);
+                    action === "edit" &&
+                      router.push(`/admin/articles/edit/${row.id}`);
                   }}
                 />
               </div>
@@ -113,14 +107,16 @@ const ArticlesFeature = () => {
           },
         ]}
       />
-      <AlertDelete
-        title="Articles"
-        message="Deleting this article is permanent and cannot be undone. All related content will be removed."
-        isDialogDeleteOpen={isOpenAlert}
-        isPendingDelete={isPendingDelete}
-        setIsDialogDeleteOpen={setIsOpenAlert}
-        mutateDelete={mutateDelete}
-      />
+      {isOpenAlert && (
+        <AlertDelete
+          title="Articles"
+          message="Deleting this article is permanent and cannot be undone. All related content will be removed."
+          isDialogDeleteOpen={isOpenAlert}
+          isPendingDelete={isPendingDelete}
+          setIsDialogDeleteOpen={setIsOpenAlert}
+          mutateDelete={mutateDelete}
+        />
+      )}
     </div>
   );
 };

@@ -13,28 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import DataTableLoader from "@/components/common/data-table-loader";
-
-type Column<TData> = {
-  header: string;
-  accessorKey: keyof TData | string;
-  cell?: (row: TData) => React.ReactNode;
-  className?: string;
-};
-
-interface DataTableProps<TData> {
-  columns: Column<TData>[];
-  data: TData[];
-  total: number;
-  isLoading: boolean;
-  limit: number;
-  searchQuery?: string;
-  setSearchQuery?: (value: string) => void;
-  page: number;
-  setPage: (value: number) => void;
-  totalPages: number;
-  setAction?: (value: string) => void;
-  setIsDialogAddOpen: (value: boolean) => void;
-}
+import { DataTableProps } from "../types";
 
 export function DataTable<TData>({
   columns,

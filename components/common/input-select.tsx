@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
+import { log } from "node:console";
 
 type Options<TData> = {
   keyValue: keyof TData;
@@ -53,6 +54,8 @@ const InputSelect = <TData,>({
 
     const handleScroll = () => {
       const { scrollTop, scrollHeight, clientHeight } = el;
+      console.log('!isFetchingNextPage:', !isFetchingNextPage);
+      console.log(`${scrollTop + clientHeight >= scrollHeight - 20}`);
       if (scrollTop + clientHeight >= scrollHeight - 20 && !isFetchingNextPage) {
         fetchNextPage();
       }
@@ -60,7 +63,7 @@ const InputSelect = <TData,>({
 
     el.addEventListener("scroll", handleScroll);
     return () => el.removeEventListener("scroll", handleScroll);
-  }, 500);
+  }, 1000);
 
   return () => clearTimeout(timer);
 }, [isOpen, fetchNextPage, hasNextPage, isFetchingNextPage]);

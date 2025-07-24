@@ -95,21 +95,6 @@ export const useGetCategoriesOption = (
   });
 };
 
-// type CategoryResponse = Awaited<ReturnType<typeof getCategories>>;
-
-// export const useGetInfiniteCategories = ({ limit, search = '' }: { limit: number, search?: string }) => {
-//   return useInfiniteQuery<CategoryResponse, Error>({
-//     queryKey: ["infiniteCategories", limit, search],
-//     initialPageParam: 1,
-//     queryFn: ({ pageParam = 1 }) => getCategories(Number(pageParam), limit, search),
-//     getNextPageParam: (lastPage) => {
-//       if ((lastPage as CategoryResponse).currentPage < (lastPage as CategoryResponse).totalPages) {
-//         return (lastPage as CategoryResponse).currentPage + 1;
-//       }
-//       return undefined;
-//     },
-//   });
-// }
 type UseGetInfiniteCategoriesParams = {
   limit: number;
   search?: string;
@@ -120,12 +105,13 @@ export const useGetInfiniteCategories = ({
   search = "",
 }: UseGetInfiniteCategoriesParams) => {
   return useInfiniteQuery({
-    queryKey: ["Categories", limit, search],
+    queryKey: ["categories", 10, search],
     initialPageParam: 1,
-    queryFn: ({ pageParam }) => getCategories(pageParam, limit, search),
-    getNextPageParam: (lastPage) =>
-      lastPage.currentPage < lastPage.totalPages
-        ? lastPage.currentPage + 1
-        : undefined,
+    queryFn: ({ pageParam }) => getCategories(pageParam, 10, search),
+    getNextPageParam: (lastPage) => {
+      const { currentPage, totalPages } = lastPage;
+      return currentPage < totalPages ? currentPage + 1 : undefined;
+    },
+    staleTime: 1000 * 60 * 5, 
   });
 };
